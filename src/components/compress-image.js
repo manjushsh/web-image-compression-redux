@@ -1,8 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleFileChoosen, handleChangeCompressRatio, compressSelectedFile } from '../redux/reducers/image-compress/image-compressor-slice';
-import CommonService from '../services/common-service';
 import '../css/image-compress.css';
+
+const dynamicCSS = {
+    buttonNoImageSelected: { height: "100vh" },
+    buttonImageSelected: { height: "auto" },
+};
 
 const ImageCompressor = () => {
 
@@ -11,24 +15,25 @@ const ImageCompressor = () => {
 
     return (
         <>
-            <h3 style={{ marginBottom: "30px" }}>Image Compressor</h3>
-
-            <div className="row bs-row">
-                <div className="col-sm-12">
-                    <label htmlFor="original-image" className="btn btn-success btn-file">
-                        {state?.fileSizeInBytes > 0 ? "Choose another Image" : "Choose an Image"}
-                        <input type="file" id="original-image" accept="image/*"
-                            style={{ display: 'none' }} required
-                            onChange={e => dispatch(handleFileChoosen(e))}>
-                        </input>
-                    </label>
-                </div>
-            </div>
-
-            <div className="row bs-row image-preview">
-                <div className="col-sm-12">
-                    <img id="preview" style={{ display: state.fileSizeInBytes > 0 ? "unset" : "none" }} width={300} alt={"Choosen file"} />
-                    {state?.fileSizeInBytes > 0 && state.file ? CommonService.previewImage("preview", state.file) : ""}
+            {!state.file ?
+                <div className="row img-compress-container"
+                    style={state?.fileSizeInBytes > 0 ? dynamicCSS.buttonImageSelected : dynamicCSS.buttonNoImageSelected}
+                >
+                    <div className="col-sm-12 vh-centered">
+                        <label htmlFor="original-image" className="btn btn-success btn-file">
+                            {state?.fileSizeInBytes > 0 ? "Choose another Image" : "Choose an Image"}
+                            <input type="file" id="original-image" accept="image/*"
+                                style={{ display: 'none' }} required
+                                onChange={e => dispatch(handleFileChoosen(e))}>
+                            </input>
+                        </label>
+                    </div>
+                </div> : ""
+            }
+            <div className="row bs-row image-preview" id="image-preview">
+                <div className="col-sm-12" id="image-preview-img">
+                    {/* <img id="image-preview-img" style={{ display: state.fileSizeInBytes > 0 ? "unset" : "none" }} alt={"Choosen file"} />
+                    {state?.fileSizeInBytes > 0 && state.file ? CommonService.previewImage("image-preview-img", state.file) : ""} */}
                 </div>
             </div>
 
@@ -66,12 +71,18 @@ const ImageCompressor = () => {
                             ) : ""
                         }
 
-                        <div className="row bs-row image-compress">
-                            <div className="col-sm-12">
-                                <button
-                                    className="btn btn-success"
-                                    onClick={e => dispatch(compressSelectedFile(state.file))}
-                                >Compress Image!</button>
+                        <div className="row bs-row text-center image-compress vh-centered">
+                            <div className="col-sm-6 vh-centered image-compress-btn" onClick={e => dispatch(compressSelectedFile(state.file))}>
+                                <span className="full-width-button">{state.isFileBeingCompressed ? "Compressing..." : "Compress Image!"}</span>
+                            </div>
+                            <div className="col-sm-6 vh-centered image-compress-btn">
+                                <label htmlFor="original-image" className="">
+                                    {state?.fileSizeInBytes > 0 ? "Choose another Image" : "Choose an Image"}
+                                    <input type="file" id="original-image" accept="image/*"
+                                        style={{ display: 'none' }} required
+                                        onChange={e => dispatch(handleFileChoosen(e))}>
+                                    </input>
+                                </label>
                             </div>
                         </div>
                     </>

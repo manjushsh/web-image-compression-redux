@@ -5,3 +5,37 @@
 .image-size-picker, .image-compress {
     margin: 30px;
 }
+
+.row{
+    margin: 0 !important;
+}
+
+.image-preview{
+    text-align: center;
+    /* filter: blur(8px);
+    -webkit-filter: blur(8px); */
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#image-preview-img{
+    height: 85vh;
+    width: auto;
+}
+
+.image-compress{
+    height: 15vh;
+    cursor: pointer;
+}
+
+.image-compress-btn{
+    padding: 5vh 0;
+    background-color: #FFDEE9;
+    background-image: linear-gradient(90deg, #FFDEE9 0%, #B5FFFC 100%);
+
+}

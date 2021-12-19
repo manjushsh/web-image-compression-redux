@@ -16,3 +16,6 @@ cd web-image-compression-redux
 npm install
 npm start
 ```
+
+# Figma Design
+Url: https://www.figma.com/file/ptmPHPRfCGEBVx70mn045U/Image-Compression?node-id=0%3A1
