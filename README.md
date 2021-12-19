@@ -3,13 +3,13 @@ Compress your images using Browser Image Compression [https://www.npmjs.com/pack
 This repo is created to practice redux.
 
 # How to run :
-1. Clone the repository
+- Clone the repository
 
 ```bash
 git clone https://github.com/manjushsh/web-image-compression-redux.git
 ```
 
-2. Start Server
+- Start Server
 
 ```bash
 cd web-image-compression-redux
