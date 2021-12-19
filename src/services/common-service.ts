@@ -10,7 +10,27 @@ const CommonService = {
     },
     previewImage: (elementId = 'preview', file: any) => {
         let image: any = document.getElementById(elementId);
-        image.src = URL.createObjectURL(file);
+        if (image)
+            image.src = URL.createObjectURL(file);
+    },
+    getBase64: (image: any, setBackgroundToNode = "image-preview") => {
+        // If no files were selected, or no FileReader support, return
+        if (!image || !window.FileReader) return;
+        // Only proceed if the selected file is an image
+        if (/^image/.test(image.type)) {
+
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                document.getElementById(setBackgroundToNode)!.style.backgroundImage = "url(" + reader.result + ")";
+                return reader.result;
+            }
+            if (image) {
+                reader.readAsDataURL(image);
+            } else {
+                console.debug("No Image selected");
+            }
+
+        };
     },
 };
 
