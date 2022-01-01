@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleFileChoosen, handleChangeCompressRatio, compressSelectedFile } from '../redux/reducers/image-compress/image-compressor-slice';
+import { applySavedTheme, handleToggleTheme } from '../redux/reducers/theme-handler/theme-toggle-slice';
 import '../css/image-compress.css';
+import CacheService from '../services/cache-service';
 
 const dynamicCSS = {
     buttonNoImageSelected: { height: "100vh" },
@@ -12,6 +14,8 @@ const ImageCompressor = () => {
 
     const dispatch = useDispatch();
     const state = useSelector(state => state?.imageCompressor);
+    dispatch(applySavedTheme());
+    const theme = CacheService.get("theme");
 
     return (
         <>
@@ -72,10 +76,10 @@ const ImageCompressor = () => {
                         }
 
                         <div className="row bs-row text-center image-compress vh-centered">
-                            <div className="col-sm-6 vh-centered image-compress-btn" onClick={e => dispatch(compressSelectedFile(state.file))}>
+                            <div className="col-sm-5 vh-centered image-compress-btn" onClick={e => dispatch(compressSelectedFile(state.file))}>
                                 <span className="full-width-button">{state.isFileBeingCompressed ? "Compressing..." : "Compress Image!"}</span>
                             </div>
-                            <div className="col-sm-6 vh-centered image-compress-btn">
+                            <div className="col-sm-5 vh-centered image-compress-btn">
                                 <label htmlFor="original-image" className="">
                                     {state?.fileSizeInBytes > 0 ? "Choose another Image" : "Choose an Image"}
                                     <input type="file" id="original-image" accept="image/*"
@@ -83,6 +87,9 @@ const ImageCompressor = () => {
                                         onChange={e => dispatch(handleFileChoosen(e))}>
                                     </input>
                                 </label>
+                            </div>
+                            <div className="col-sm-2 vh-centered" onClick={() => dispatch(handleToggleTheme())}>
+                                <span>{theme == "dark" ? <i color='#FFF' className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}</span>
                             </div>
                         </div>
                     </>
