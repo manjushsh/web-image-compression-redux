@@ -2,34 +2,47 @@ import { createSlice } from "@reduxjs/toolkit";
 import CacheService from "../../../services/cache-service";
 
 const THEME_KEY = "theme";
-const theme = CacheService.get(THEME_KEY);
+const theme: any = CacheService.get(THEME_KEY);
+
+const applyLightTheme = (element: HTMLElement, state: any) => {
+    element.classList.remove("dark-mode");
+    state.theme = "light";
+};
+
+const applyDarkTheme = (element: HTMLElement, state: any) => {
+    element.classList.add("dark-mode");
+    state.theme = "dark";
+};
+
 const ThemeToggleSlice = createSlice({
     name: "theme-toggler",
-    initialState: theme || "light",
+    initialState: { theme: theme || "light" },
     reducers: {
-        handleToggleTheme: () => {
+        handleToggleTheme: state => {
             const element = document.body;
-            if (element?.classList.contains("dark-mode"))
+            if (element?.classList.contains("dark-mode")) {
+                state.theme = "light";
                 CacheService.set(THEME_KEY, "light");
-            CacheService.set(THEME_KEY, "dark");
-
+            }
+            else {
+                state.theme = "dark";
+                CacheService.set(THEME_KEY, "dark");
+            }
             element.classList.toggle("dark-mode");
-            return CacheService.get(theme);
         },
-        applySavedTheme: () => {
+        applySavedTheme: state => {
             const element = document.body;
             switch (theme) {
                 case "dark":
-                    element.classList.add("dark-mode");
+                    applyDarkTheme(element, state);
                     break;
                 case "light":
-                    element.classList.remove("dark-mode");
+                    applyLightTheme(element, state);
                     break;
                 default:
-                    element.classList.remove("dark-mode");
+                    applyLightTheme(element, state);
                     break;
             };
-            return theme;
         },
     },
 });

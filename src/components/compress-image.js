@@ -76,7 +76,7 @@ const ImageCompressor = () => {
                         }
 
                         <div className="row bs-row text-center image-compress vh-centered">
-                            <div className="col-sm-5 vh-centered image-compress-btn" onClick={e => dispatch(compressSelectedFile(state.file))}>
+                            <div className="col-sm-6 vh-centered image-compress-btn" onClick={e => dispatch(compressSelectedFile(state.file))}>
                                 <span className="full-width-button">{state.isFileBeingCompressed ? "Compressing..." : "Compress Image!"}</span>
                             </div>
                             <div className="col-sm-5 vh-centered image-compress-btn">
@@ -88,7 +88,7 @@ const ImageCompressor = () => {
                                     </input>
                                 </label>
                             </div>
-                            <div className="col-sm-2 vh-centered" onClick={() => dispatch(handleToggleTheme())}>
+                            <div className="col-sm-1 vh-centered" onClick={() => dispatch(handleToggleTheme(theme))}>
                                 <span>{theme === "dark" ? <i color='#FFF' className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}</span>
                             </div>
                         </div>
