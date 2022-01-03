@@ -2,16 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import CacheService from "../../../services/cache-service";
 
 const THEME_KEY = "theme";
-const theme: any = CacheService.get(THEME_KEY);
+const theme: string = CacheService.get(THEME_KEY);
 
-const applyLightTheme = (element: HTMLElement, state: any) => {
-    element.classList.remove("dark-mode");
-    state.theme = "light";
-};
-
-const applyDarkTheme = (element: HTMLElement, state: any) => {
-    element.classList.add("dark-mode");
-    state.theme = "dark";
+const applyTheme = (element: HTMLElement, state: any, method: string = 'add', type: string = 'dark') => {
+    element.classList[method]("dark-mode");
+    state.theme = type;
 };
 
 const ThemeToggleSlice = createSlice({
@@ -34,13 +29,13 @@ const ThemeToggleSlice = createSlice({
             const element = document.body;
             switch (theme) {
                 case "dark":
-                    applyDarkTheme(element, state);
+                    applyTheme(element, state, 'add', 'dark');
                     break;
                 case "light":
-                    applyLightTheme(element, state);
+                    applyTheme(element, state, 'remove', 'light');
                     break;
                 default:
-                    applyLightTheme(element, state);
+                    applyTheme(element, state, 'remove', 'light');
                     break;
             };
         },
