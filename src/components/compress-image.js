@@ -89,7 +89,7 @@ const ImageCompressor = () => {
                                 </label>
                             </div>
                             <div className="col-sm-2 vh-centered" onClick={() => dispatch(handleToggleTheme())}>
-                                <span>{theme == "dark" ? <i color='#FFF' className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}</span>
+                                <span>{theme === "dark" ? <i color='#FFF' className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}</span>
                             </div>
                         </div>
                     </>
