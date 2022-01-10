@@ -2,34 +2,42 @@ import { createSlice } from "@reduxjs/toolkit";
 import CacheService from "../../../services/cache-service";
 
 const THEME_KEY = "theme";
-const theme = CacheService.get(THEME_KEY);
+const theme: string = CacheService.get(THEME_KEY);
+
+const applyTheme = (element: HTMLElement, state: any, method: string = 'add', type: string = 'dark') => {
+    element.classList[method]("dark-mode");
+    state.theme = type;
+};
+
 const ThemeToggleSlice = createSlice({
     name: "theme-toggler",
-    initialState: theme || "light",
+    initialState: { theme: theme || "light" },
     reducers: {
-        handleToggleTheme: () => {
+        handleToggleTheme: state => {
             const element = document.body;
-            if (element?.classList.contains("dark-mode"))
+            if (element?.classList.contains("dark-mode")) {
+                state.theme = "light";
                 CacheService.set(THEME_KEY, "light");
-            CacheService.set(THEME_KEY, "dark");
-
+            }
+            else {
+                state.theme = "dark";
+                CacheService.set(THEME_KEY, "dark");
+            }
             element.classList.toggle("dark-mode");
-            return CacheService.get(theme);
         },
-        applySavedTheme: () => {
+        applySavedTheme: state => {
             const element = document.body;
             switch (theme) {
                 case "dark":
-                    element.classList.add("dark-mode");
+                    applyTheme(element, state, 'add', 'dark');
                     break;
                 case "light":
-                    element.classList.remove("dark-mode");
+                    applyTheme(element, state, 'remove', 'light');
                     break;
                 default:
-                    element.classList.remove("dark-mode");
+                    applyTheme(element, state, 'remove', 'light');
                     break;
             };
-            return theme;
         },
     },
 });
