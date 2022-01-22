@@ -1,7 +1,7 @@
 const ConfigService = {
     image: {
         compressionOptions: {
-            maxSizeMB: 5,
+            maxSizeMB: 2,
             useWebWorker: true,
         },
     },

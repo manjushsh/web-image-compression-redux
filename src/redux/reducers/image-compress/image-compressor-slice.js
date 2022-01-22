@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import CommonService from "../../../services/common-service";
+import CommonService from "../../../services/common-service";
 import ConfigService from "../../../services/config-service";
 import DownloadService from "../../../services/download-service";
 
@@ -27,6 +27,7 @@ const imageCompressionSlice = createSlice({
                 state.fileSizeInBytes = file.size;
                 state.compressRatio = 0.75;
                 state.file = file;
+                CommonService.getBase64(file);
                 // const compressedFile = compressSelectedFile(file);
                 // const { size, unit } = CommonService.getOriginalFileSize(compressedFile.size);
                 // state.compressedSize = `${size}${unit}`;
