@@ -50,5 +50,5 @@
 }
 
 .fa-sun, .fa-moon{
-    color: #c635c6;
+    color: var(--bs-green);
 }
