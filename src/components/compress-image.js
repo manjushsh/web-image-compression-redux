@@ -24,13 +24,27 @@ const ImageCompressor = () => {
                     style={state?.fileSizeInBytes > 0 ? dynamicCSS.buttonImageSelected : dynamicCSS.buttonNoImageSelected}
                 >
                     <div className="col-sm-12 vh-centered">
-                        <label htmlFor="original-image" className="btn btn-success btn-file">
+
+                        <div class="input-group flex-centered">
+                            <label htmlFor="original-image" className="btn btn-success btn-file">
+                                {state?.fileSizeInBytes > 0 ? "Choose another Image" : "Choose an Image"}
+                                <input type="file" id="original-image" accept="image/*"
+                                    style={{ display: 'none' }} required
+                                    onChange={e => dispatch(handleFileChoosen(e))}>
+                                </input>
+                            </label>
+                            <div className="theme-toggler" onClick={() => dispatch(handleToggleTheme(theme))}>
+                                <span>{theme === "dark" ? <i color='#FFF' className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}</span>
+                            </div>
+                        </div>
+
+                        {/* <label htmlFor="original-image" className="btn btn-success btn-file">
                             {state?.fileSizeInBytes > 0 ? "Choose another Image" : "Choose an Image"}
                             <input type="file" id="original-image" accept="image/*"
                                 style={{ display: 'none' }} required
                                 onChange={e => dispatch(handleFileChoosen(e))}>
                             </input>
-                        </label>
+                        </label> */}
                     </div>
                 </div> : ""
             }
@@ -79,7 +93,7 @@ const ImageCompressor = () => {
                             <div className="col-sm-6 vh-centered image-compress-btn" onClick={e => dispatch(compressSelectedFile(state.file))}>
                                 <span className="full-width-button">{state.isFileBeingCompressed ? "Compressing..." : "Compress Image!"}</span>
                             </div>
-                            <div className="col-sm-5 vh-centered image-compress-btn">
+                            <div className="col-sm-6 vh-centered image-compress-btn">
                                 <label htmlFor="original-image" className="">
                                     {state?.fileSizeInBytes > 0 ? "Choose another Image" : "Choose an Image"}
                                     <input type="file" id="original-image" accept="image/*"
@@ -87,9 +101,6 @@ const ImageCompressor = () => {
                                         onChange={e => dispatch(handleFileChoosen(e))}>
                                     </input>
                                 </label>
-                            </div>
-                            <div className="col-sm-1 vh-centered" onClick={() => dispatch(handleToggleTheme(theme))}>
-                                <span>{theme === "dark" ? <i color='#FFF' className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}</span>
                             </div>
                         </div>
                     </>

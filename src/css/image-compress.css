@@ -10,6 +10,11 @@
     margin: 0 !important;
 }
 
+.flex-centered{
+    align-items: center;
+    justify-content: center;
+}
+
 .image-preview{
     text-align: center;
     /* filter: blur(8px);
@@ -33,9 +38,17 @@
     cursor: pointer;
 }
 
+.theme-toggler{
+    padding: 5px;
+}
+
 .image-compress-btn{
     padding: 5vh 0;
     background-color: #FFDEE9;
     background-image: linear-gradient(90deg, #FFDEE9 0%, #B5FFFC 100%);
 
+}
+
+.fa-sun, .fa-moon{
+    color: var(--bs-green);
 }
