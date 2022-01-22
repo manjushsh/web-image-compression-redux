@@ -32,7 +32,7 @@ const ImageCompressor = () => {
                                     onChange={e => dispatch(handleFileChoosen(e))}>
                                 </input>
                             </label>
-                            <div className="theme-toggler" onClick={() => dispatch(handleToggleTheme(theme))}>
+                            <div className="theme-toggler" data-toggle="tooltip" title="Toggle Theme" onClick={() => dispatch(handleToggleTheme(theme))} tool>
                                 <span>{theme === "dark" ? <i color='#FFF' className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}</span>
                             </div>
                         </div>
