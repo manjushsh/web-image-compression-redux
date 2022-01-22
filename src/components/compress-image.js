@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleFileChoosen, handleChangeCompressRatio, compressSelectedFile } from '../redux/reducers/image-compress/image-compressor-slice';
 import { applySavedTheme, handleToggleTheme } from '../redux/reducers/theme-handler/theme-toggle-slice';
